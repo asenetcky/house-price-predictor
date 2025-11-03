@@ -1,12 +1,28 @@
-name: MLops CI
+name: MLops Pipeline
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      run_all:
+        description: "Run all jobs"
+        required: false
+        default: "true"
+      run_process_data:
+        description: "Run data processing job."
+        required: false
+        default: "false"
+      run_train_model:
+        description: "Run model training job."
+        required: false
+        default: "false"
+      run_build_and_publish:
+        description: "Run build and publish job"
+        required: false
+        default: "false"
+  release:
+    types: [created]
+    #branches: [ main ]
+    #tags: ["v*.*.*"]
 
 jobs:
   e2e_workflow:
