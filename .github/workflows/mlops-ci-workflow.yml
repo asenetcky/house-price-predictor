@@ -25,8 +25,9 @@ on:
     #tags: ["v*.*.*"]
 
 jobs:
-  e2e_workflow:
+  process_data:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -34,26 +35,38 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v6
         with:
-          python-version: "3.11.5"
+          python-version: "3.11.9"
 
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run Data Processing Tests
+      - name: Process data
         run: |
           python src/data/run_processing.py \
            --input data/raw/house_data.csv \
            --output data/processed/cleaned_house_data.csv
       
-      - name: Do Feature Engineering
+      - name: Engineer features
         run: |
           python src/features/engineer.py \
             --input data/processed/cleaned_house_data.csv \
             --output data/processed/featured_house_data.csv \
             --preprocessor models/trained/preprocessor.pkl 
 
+      - name: Upload processed data
+        uses: actions/upload-artifact@v4
+        with:
+          name: processed-data
+          path: data/processed/featured_house_data.csv
+      
+      - name: Upload preprocessor
+        uses: actions/upload-artifact@v4
+        with:
+          name: preprocessor
+          path: models/trained/preprocessor.pkl
+  
       - name: Setup MLFlow
         run: |
           docker pull ghcr.io/mlflow/mlflow:latest 
