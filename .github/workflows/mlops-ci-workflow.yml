@@ -99,7 +99,7 @@ jobs:
           --backend-store-uri sqlite:///mlflow.db \
           --default-artifact-root /tmp/mlruns
       
-      - name: wait fr MLFlow to start
+      - name: wait for MLFlow to start
         run: |
           for i in {1..10}; do
             curl -f http://localhost:5000/health || sleep 5;
@@ -112,7 +112,7 @@ jobs:
           --config configs/model_config.yaml \
           --data data/processed/featured_house_data.csv \
           --models-dir models \
-          --mlflow-tracking-uri http://localhost:5555
+          --mlflow-tracking-uri http://localhost:5000
 
       - name: upload trained model
         uses: actions/upload-artifact@v4
