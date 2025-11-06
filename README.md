@@ -108,7 +108,7 @@ python -m jupyterlab
 Clean and preprocess the raw housing dataset:
 
 ```bash
-python src/data/run_processing.py   --input data/raw/house_data.csv   --output data/processed/cleaned_house_data.csv
+uv run packages/data/src/run_processing.py   --input data/raw/house_data.csv   --output data/processed/cleaned_house_data.csv
 ```
 
 ---
@@ -118,7 +118,7 @@ python src/data/run_processing.py   --input data/raw/house_data.csv   --output d
 Apply transformations and generate features:
 
 ```bash
-python src/features/engineer.py   --input data/processed/cleaned_house_data.csv   --output data/processed/featured_house_data.csv   --preprocessor models/trained/preprocessor.pkl
+uv run packages/features/src/engineer.py   --input data/processed/cleaned_house_data.csv   --output data/processed/featured_house_data.csv   --preprocessor models/trained/preprocessor.pkl
 ```
 
 ---
