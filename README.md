@@ -128,7 +128,7 @@ uv run packages/features/src/engineer.py   --input data/processed/cleaned_house_
 Train your model and log everything to MLflow:
 
 ```bash
-python src/models/train_model.py   --config configs/model_config.yaml   --data data/processed/featured_house_data.csv   --models-dir models   --mlflow-tracking-uri http://localhost:5555
+uv run packages/models/src/train_model.py   --config configs/model_config.yaml   --data data/processed/featured_house_data.csv   --models-dir models   --mlflow-tracking-uri http://localhost:5555
 ```
 
 ---
