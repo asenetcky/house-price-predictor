@@ -207,6 +207,37 @@ kubectl apply -f model-deploy.yaml -f model-svc.yaml -f streamlit-deploy.yaml -f
 ```
 
 
+
+## Setting up Model Monitoring with Prometheus and Grafana
+
+Installing Helm
+
+```bash
+curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 |
+bash
+```
+
+Add helm repo
+
+```bash
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+```
+
+```bash
+helm upgrade --install prom \
+-n monitoring \
+--create-namespace \
+prometheus-community/kube-prometheus-stack \
+--set grafana.service.type=NodePort \
+--set grafana.service.nodePort=30200 \
+--set prometheus.service.type=NodePort \
+--set prometheus.service.nodePort=30300
+```
+
+- [prometheus at 30300](http://localhost:30300)
+- [grafana at 30200](http://localhost:30200)
+
 ## 🤝 Contributing
 
 We welcome contributions, issues, and suggestions to make this project even better. Feel free to fork, explore, and raise PRs!
