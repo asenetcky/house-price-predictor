@@ -177,6 +177,36 @@ This project is part of the [**MLOps Bootcamp**](https://schoolofdevops.com) at 
 
 ---
 
+## Kubernetes with `kind`, `kubectl`, and `visualiser`
+
+
+Setting up local development environemt with kind cluster:
+
+```bash
+git clone https://github.com/initcron/k8s-code.git
+cd k8s-code/helper/kind/
+kind create cluster --config kind-three-node-cluster.yaml
+```
+
+setting up visualiser:
+
+```bash
+cd ~
+git clone https://github.com/schoolofdevops/kube-ops-view
+kubectl apply -f kube-ops-view/deploy/
+```
+
+Now check [localhost:32000](http://localhost:32000)
+
+
+running our model/app in kubernetes:
+
+```bash
+cd deployment/kubernetes/
+kubectl apply -f model-deploy.yaml -f model-svc.yaml -f streamlit-deploy.yaml -f streamlit-svc.yaml
+```
+
+
 ## 🤝 Contributing
 
 We welcome contributions, issues, and suggestions to make this project even better. Feel free to fork, explore, and raise PRs!
